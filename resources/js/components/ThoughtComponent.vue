@@ -1,6 +1,9 @@
 <template>
     <div class="card">
-        <div class="card-header">Publicado en: {{ thought.created_at }}</div>
+        <div class="card-header">
+            Publicado en: {{ thought.created_at }} - Ultima actualizacion
+            {{ thought.updated_at }}
+        </div>
 
         <div class="card-body">
             <input
@@ -50,11 +53,17 @@ export default {
             this.editMode = true;
         },
         onClickUpdate() {
-            axios.put(`/thought/${this.thought.id}`).then((respuesta) => {
-                this.editMode = false;
-                const thought = response.data();
-                this.$emit("update", thought);
-            });
+            const params = {
+                description: this.thought.description,
+            };
+            axios
+                .put(`/thought/${this.thought.id}`, params)
+                .then((response) => {
+                    this.editMode = false;
+                    const thought = response.data();
+                    console.log(response.data);
+                    this.$emit("update", thought);
+                });
         },
     },
 };

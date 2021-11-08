@@ -53,9 +53,9 @@ class ThoughtController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request;
         $thougth = Thought::find($id);
         $thougth->description = $request->description;
+        $thougth->user_id = auth()->id();
         $thougth->save();
         return $thougth;
     }

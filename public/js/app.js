@@ -2053,6 +2053,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["thought"],
   data: function data() {
@@ -2077,9 +2080,13 @@ __webpack_require__.r(__webpack_exports__);
     onClickUpdate: function onClickUpdate() {
       var _this2 = this;
 
-      axios.put("/thought/".concat(this.thought.id)).then(function (respuesta) {
+      var params = {
+        description: this.thought.description
+      };
+      axios.put("/thought/".concat(this.thought.id), params).then(function (response) {
         _this2.editMode = false;
         var thought = response.data();
+        console.log(response.data);
 
         _this2.$emit("update", thought);
       });
@@ -37811,7 +37818,13 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
     _c("div", { staticClass: "card-header" }, [
-      _vm._v("Publicado en: " + _vm._s(_vm.thought.created_at)),
+      _vm._v(
+        "\n        Publicado en: " +
+          _vm._s(_vm.thought.created_at) +
+          " - Ultima actualizacion\n        " +
+          _vm._s(_vm.thought.updated_at) +
+          "\n    "
+      ),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
